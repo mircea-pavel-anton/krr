@@ -1,3 +1,3 @@
-from .memory_percentile import MemoryPercentileStrategy
+from .burstable import BurstableStrategy
 from .simple import SimpleStrategy
 from .simple_limit import SimpleLimitStrategy

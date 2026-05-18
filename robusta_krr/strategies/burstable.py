@@ -24,7 +24,7 @@ from robusta_krr.core.integrations.prometheus.metrics import (
 )
 
 
-class MemoryPercentileStrategySettings(StrategySettings):
+class BurstableStrategySettings(StrategySettings):
     cpu_request_percentile: float = pd.Field(
         50, gt=0, le=100, description="The percentile to use for the CPU request."
     )
@@ -69,9 +69,9 @@ class MemoryPercentileStrategySettings(StrategySettings):
         return (end - start) >= timedelta(hours=3)
 
 
-class MemoryPercentileStrategy(BaseStrategy[MemoryPercentileStrategySettings]):
+class BurstableStrategy(BaseStrategy[BurstableStrategySettings]):
 
-    display_name = "memory_percentile"
+    display_name = "burstable"
     rich_console = True
 
     @property
@@ -96,7 +96,7 @@ class MemoryPercentileStrategy(BaseStrategy[MemoryPercentileStrategySettings]):
             History: {self.settings.history_duration} hours
             Step: {self.settings.timeframe_duration} minutes
 
-            All parameters can be customized. For example: `krr memory_percentile --cpu-request-percentile=50 --cpu-limit-percentile=99 --memory-request-percentile=50 --memory-limit-percentile=99 --memory-buffer-percentage=15`
+            All parameters can be customized. For example: `krr burstable --cpu-request-percentile=50 --cpu-limit-percentile=99 --memory-request-percentile=50 --memory-limit-percentile=99 --memory-buffer-percentage=15`
             """)
 
         if not self.settings.allow_hpa:
